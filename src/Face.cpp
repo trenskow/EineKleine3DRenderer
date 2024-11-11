@@ -1,6 +1,6 @@
 //
 //  Face.cpp
-//  Tiny3DEngine
+//  EineKleine3DRenderer
 //
 //  Created by Kristian Trenskow on 11/11/2024.
 //

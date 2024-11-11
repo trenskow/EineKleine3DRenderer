@@ -1,6 +1,6 @@
 //
 //  Vertex.hpp
-//  Tiny3DEngine
+//  EineKleine3DRenderer
 //
 //  Created by Kristian Trenskow on 10/11/2024.
 //
