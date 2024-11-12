@@ -14,6 +14,10 @@
 #include "Matrix.hpp"
 #include "Vertex.hpp"
 
+struct Face2d {
+	Vertex2d p[3];
+};
+
 struct Face3d {
 
 	Face3d operator*(const Matrix4x4& matrix) const;
@@ -32,6 +36,7 @@ struct Face3d {
 
 };
 
+typedef std::vector<Face2d> Faces2d;
 typedef std::vector<Face3d> Faces3d;
 
 #endif /* Face_hpp */

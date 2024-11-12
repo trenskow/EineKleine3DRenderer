@@ -15,33 +15,28 @@
 #include "Edge.hpp"
 #include "Face.hpp"
 #include "Camera.hpp"
+#include "RenderResult.hpp"
+#include "Color.hpp"
+#include "Mesh.hpp"
 
 class Renderer {
 
 	public:
-		Renderer();
 
-		bool loadModel(
-			const std::string& objectFile);
+		Renderer();
+		Renderer(const Renderer&) = default;
+		Renderer(const Meshes& meshes);
 
 		void render(
-			Edges2d& edges,
+			RenderResult& renderResult,
 			float width,
 			float height,
+			Color faceColor,
+			Color edgeColor = Color(0, 0, 0, 0),
 			Camera camera = Camera()
 		) const;
 
-		struct Face3dExtended: Face3d {
-
-			Face3dExtended() = default;
-			Face3dExtended(
-				const Face3dExtended& other) = default;
-			Face3dExtended(
-				const Face3d& other);
-
-			std::vector<Face3d> adjacentFaces;
-
-		};
+	private:
 
 		struct FaceRenderInformation {
 
@@ -52,21 +47,22 @@ class Renderer {
 				P20  = 1 << 2
 			};
 
-			Face3dExtended model;
-			Face3dExtended world;
+			Mesh::Face3dExtended mesh;
+			Mesh::Face3dExtended world;
 			Face3d projected;
 			std::vector<Vertex3d> adjacentWorldFaces;
+			Color color;
 
 			OutputEdge outputEdge = OutputEdge::None;
 
 		};
 
-		std::vector<Face3dExtended> _faces;
+		Meshes meshes;
+
+		inline friend FaceRenderInformation::OutputEdge operator|(FaceRenderInformation::OutputEdge a, FaceRenderInformation::OutputEdge b) {
+			return static_cast<FaceRenderInformation::OutputEdge>(static_cast<int>(a) | static_cast<int>(b));
+		}
 
 };
-
-inline Renderer::FaceRenderInformation::OutputEdge operator|(Renderer::FaceRenderInformation::OutputEdge a, Renderer::FaceRenderInformation::OutputEdge b) {
-	return static_cast<Renderer::FaceRenderInformation::OutputEdge>(static_cast<int>(a) | static_cast<int>(b));
-}
 
 #endif /* Renderer_hpp */

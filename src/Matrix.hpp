@@ -10,14 +10,23 @@
 
 struct Matrix4x4 {
 
-	static Matrix4x4 identity();
+	static Matrix4x4 identity()
+	;
 	static Matrix4x4 rotationZ(
-		float theta);
+		float radians);
+
 	static Matrix4x4 rotationX(
-		float theta);
+		float radians);
+
 	static Matrix4x4 rotationY(
-		float theta);
+		float radians);
+
 	static Matrix4x4 translation(
+		float x,
+		float y,
+		float z);
+
+	static Matrix4x4 scale(
 		float x,
 		float y,
 		float z);

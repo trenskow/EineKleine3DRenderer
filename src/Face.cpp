@@ -78,4 +78,3 @@ Vertex3d Face3d::normal() const {
 bool Face3d::visibleFrom(const Vertex3d &camera) const {
 	return normal().dotProduct(p[0] - camera) < 0;
 }
-

@@ -18,29 +18,35 @@ Matrix4x4 Matrix4x4::identity() {
 	};
 }
 
-Matrix4x4 Matrix4x4::rotationZ(float theta) {
+Matrix4x4 Matrix4x4::rotationZ(
+	float radians
+) {
 	return {
-		cosf(theta), sinf(theta), 0, 0,
-		-sinf(theta), cosf(theta), 0, 0,
+		cosf(radians), sinf(radians), 0, 0,
+		-sinf(radians), cosf(radians), 0, 0,
 		0, 0, 1, 0,
 		0, 0, 0, 1
 	};
 }
 
-Matrix4x4 Matrix4x4::rotationX(float theta) {
+Matrix4x4 Matrix4x4::rotationX(
+	float radians
+) {
 	return {
 		1, 0, 0, 0,
-		0, cosf(theta), sinf(theta), 0,
-		0, -sinf(theta), cosf(theta), 0,
+		0, cosf(radians), sinf(radians), 0,
+		0, -sinf(radians), cosf(radians), 0,
 		0, 0, 0, 1
 	};
 }
 
-Matrix4x4 Matrix4x4::rotationY(float theta) {
+Matrix4x4 Matrix4x4::rotationY(
+	float radians
+) {
 	return {
-		cosf(theta), 0, -sinf(theta), 0,
+		cosf(radians), 0, -sinf(radians), 0,
 		0, 1, 0, 0,
-		sinf(theta), 0, cosf(theta), 0,
+		sinf(radians), 0, cosf(radians), 0,
 		0, 0, 0, 1
 	};
 }
@@ -58,12 +64,25 @@ Matrix4x4 Matrix4x4::translation(
 	};
 }
 
+Matrix4x4 Matrix4x4::scale(
+	float x,
+	float y,
+	float z
+) {
+	return {
+		x, 0, 0, 0,
+		0, y, 0, 0,
+		0, 0, z, 0,
+		0, 0, 0, 1
+	};
+}
+
 Matrix4x4 Matrix4x4::projection(
-								float aspectRatio,
-								float fov,
-								float near,
-								float far
-								) {
+	float aspectRatio,
+	float fov,
+	float near,
+	float far
+) {
 
 	Matrix4x4 matrixProjection;
 
