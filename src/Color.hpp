@@ -30,6 +30,8 @@ struct Color {
 		const Color& other,
 		float factor) const;
 
+	bool isTransparent() const;
+
 };
 
 #endif /* Color_hpp*/

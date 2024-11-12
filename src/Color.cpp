@@ -34,3 +34,7 @@ Color Color::interpolate(
 		blue + (other.blue - blue) * factor,
 		alpha + (other.alpha - alpha) * factor);
 }
+
+bool Color::isTransparent() const {
+	return !(alpha > 0);
+}

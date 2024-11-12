@@ -23,6 +23,18 @@ class Renderer {
 
 	public:
 
+		enum class FaceRenderOptions {
+			none = 0,
+			solid = 1,
+			shaded = 2
+		};
+
+		enum class EdgeRenderOptions {
+			none = 0 << 0,
+			visible = 1 << 0,
+			wireframe = 1 << 1
+		};
+
 		Renderer();
 		Renderer(const Renderer&) = default;
 		Renderer(const Meshes& meshes);
@@ -33,18 +45,28 @@ class Renderer {
 			float height,
 			Color faceColor,
 			Color edgeColor = Color(0, 0, 0, 0),
-			Camera camera = Camera()
+			Camera camera = Camera(),
+			FaceRenderOptions faceRenderOptions = FaceRenderOptions::shaded,
+			EdgeRenderOptions edgeRenderOptions = EdgeRenderOptions::none
 		) const;
+
+		inline friend FaceRenderOptions operator|(FaceRenderOptions a, FaceRenderOptions b) {
+			return static_cast<FaceRenderOptions>(static_cast<int>(a) | static_cast<int>(b));
+		}
+
+		inline friend EdgeRenderOptions operator|(EdgeRenderOptions a, EdgeRenderOptions b) {
+			return static_cast<EdgeRenderOptions>(static_cast<int>(a) | static_cast<int>(b));
+		}
 
 	private:
 
 		struct FaceRenderInformation {
 
 			enum OutputEdge {
-				None = 0 << 0,
-				P01  = 1 << 0,
-				P12  = 1 << 1,
-				P20  = 1 << 2
+				OutputEdgeNone = 0 << 0,
+				OutputEdgeP01  = 1 << 0,
+				OutputEdgeP12  = 1 << 1,
+				OutputEdgeP20  = 1 << 2
 			};
 
 			Mesh::Face3dExtended mesh;
@@ -52,8 +74,9 @@ class Renderer {
 			Face3d projected;
 			std::vector<Vertex3d> adjacentWorldFaces;
 			Color color;
+			bool visibleFromCamera = false;
 
-			OutputEdge outputEdge = OutputEdge::None;
+			OutputEdge outputEdge = OutputEdgeNone;
 
 		};
 

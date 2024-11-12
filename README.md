@@ -13,22 +13,25 @@ auto renderer = Renderer();
 
 renderer.loadModel("MyModel.obj");
 
-std::vector<Edge2d> edgesToDraw;
+RenderResult result;
 
 renderer.render(
-  edgesToDraw, // Will be filled with 2D lines to draw.
-  200, // Width,
-  200, // Height,
-  Camera.lookAtTarget(
-    Vertex3d({ 2.5, 0, 0 }), // Position,
-    Vertex3d({ 0, 0, 0 }) // Target
-  )
+	result, // Will be filled with tringles to stroke and fill.
+	200, // Width,
+	200, // Height,
+	Color(0, 0, 0), // Face color,
+	Color(255, 255, 255), // Stroke color,
+	Camera.lookAtTarget(
+		Vertex3d({ 2.5, 0, 0 }), // Position,
+		Vertex3d({ 0, 0, 0 }) // Target
+	),
+	Renderer::FaceRenderOption::shaded,     // Valid: solid (default), shaded, none
+	Renderer::FaceRenderOptions::none       // Valid: visible, wireframe, none (default)
 );
 
-/* Draw `edgesToDraw` to a canvas. */
+/* Draw `result.fills` and `result.strokes` to a canvas. */
 ````
 
 # License
 
 See license in LICENSE.
-

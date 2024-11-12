@@ -21,13 +21,13 @@ struct RenderResult {
 		Color color;
 	};
 
-	struct Line {
+	struct Stroke {
 		Edge2d edge;
 		Color color;
 	};
 
 	std::vector<Fill> fills;
-	std::vector<Line> lines;
+	std::vector<Stroke> strokes;
 
 };
 
